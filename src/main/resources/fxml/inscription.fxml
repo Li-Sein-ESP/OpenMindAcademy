@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.inscriptionController" maxWidth="Infinity" maxHeight="Infinity" minWidth="800" minHeight="600" alignment="CENTER" spacing="20" VBox.vgrow="ALWAYS">
+    <stylesheets>
+        <URL value="@/fxml/styles.css"/>
+    </stylesheets>
+    <children>
+        <Label text="Inscription" styleClass="title-label"/>
+        <ScrollPane fitToWidth="true" fitToHeight="false" VBox.vgrow="ALWAYS">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <content>
+                <GridPane hgap="15" vgap="15" alignment="CENTER" prefWidth="800">
+                    <Label text="Nom:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="label"/>
+                    <TextField fx:id="nomField" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="text-field" prefWidth="400"/>
+                    <Label text="Prénom:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="label"/>
+                    <TextField fx:id="prenomField" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="text-field" prefWidth="400"/>
+                    <Label text="Adresse:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="label"/>
+                    <TextField fx:id="adresseField" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="text-field" prefWidth="400"/>
+                    <Label text="Date de Naissance:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="label"/>
+                    <DatePicker fx:id="dateNaissancePicker" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="date-picker" prefWidth="400"/>
+                    <Label text="Email:" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="label"/>
+                    <TextField fx:id="emailField" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="text-field" prefWidth="400"/>
+                    <Label text="Sexe:" GridPane.rowIndex="5" GridPane.columnIndex="0" styleClass="label"/>
+                    <ComboBox fx:id="sexeCombo" GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="combo-box" prefWidth="400"/>
+                    <Label text="Num Téléphone:" GridPane.rowIndex="6" GridPane.columnIndex="0" styleClass="label"/>
+                    <TextField fx:id="numTelephoneField" GridPane.rowIndex="6" GridPane.columnIndex="1" styleClass="text-field" prefWidth="400"/>
+                    <Label text="Rôle:" GridPane.rowIndex="7" GridPane.columnIndex="0" styleClass="label"/>
+                    <ComboBox fx:id="roleCombo" GridPane.rowIndex="7" GridPane.columnIndex="1" styleClass="combo-box" prefWidth="400"/>
+                    <Label fx:id="diplomeLabel" text="Diplôme:" GridPane.rowIndex="8" GridPane.columnIndex="0" styleClass="label" visible="false"/>
+                    <TextField fx:id="diplomeField" GridPane.rowIndex="8" GridPane.columnIndex="1" styleClass="text-field" prefWidth="400" visible="false"/>
+                    <Label fx:id="niveauEtudeLabel" text="Niveau Étude:" GridPane.rowIndex="9" GridPane.columnIndex="0" styleClass="label" visible="false"/>
+                    <TextField fx:id="niveauEtudeField" GridPane.rowIndex="9" GridPane.columnIndex="1" styleClass="text-field" prefWidth="400" visible="false"/>
+                    <Label text="Mot de passe:" GridPane.rowIndex="10" GridPane.columnIndex="0" styleClass="label"/>
+                    <VBox spacing="5" GridPane.rowIndex="10" GridPane.columnIndex="1">
+                        <PasswordField fx:id="passwordField" styleClass="text-field" prefWidth="400"/>
+                        <Label fx:id="passwordStrengthLabel" text="" styleClass="small-label"/>
+                    </VBox>
+                    <Label text="Confirmer Mot de passe:" GridPane.rowIndex="11" GridPane.columnIndex="0" styleClass="label"/>
+                    <PasswordField fx:id="confirmPasswordField" GridPane.rowIndex="11" GridPane.columnIndex="1" styleClass="text-field" prefWidth="400"/>
+                    <Label text="Image:" GridPane.rowIndex="12" GridPane.columnIndex="0" styleClass="label"/>
+                    <TextField fx:id="imageField" GridPane.rowIndex="12" GridPane.columnIndex="1" styleClass="text-field" prefWidth="400"/>
+                    <HBox spacing="20" GridPane.rowIndex="13" GridPane.columnIndex="1" alignment="CENTER">
+                        <Button fx:id="registerButton" text="S'inscrire" onAction="#register" styleClass="button" prefWidth="200"/>
+                        <Button text="Connexion" onAction="#goToLogin" styleClass="secondary-button" prefWidth="200"/>
+                    </HBox>
+                </GridPane>
+            </content>
+        </ScrollPane>
+    </children>
+</VBox>

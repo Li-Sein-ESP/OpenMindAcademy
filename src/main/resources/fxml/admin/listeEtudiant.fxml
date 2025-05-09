@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import java.net.URL?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.listeEtudiantAdminController" maxWidth="Infinity" maxHeight="Infinity" minWidth="800" minHeight="600">
+    <stylesheets>
+        <URL value="@/fxml/styles.css"/>
+    </stylesheets>
+    <left>
+        <VBox fx:id="navbar" alignment="CENTER" spacing="15" style="-fx-background-color: #0D47A1; -fx-padding: 20;" prefWidth="200" VBox.vgrow="ALWAYS">
+            <Button fx:id="homeButton" text="Accueil" onAction="#goToHome" styleClass="button" prefWidth="180"/>
+            <Button fx:id="listTeachersButton" text="Liste Enseignants" onAction="#goToTeacherList" styleClass="button" prefWidth="180"/>
+            <Button fx:id="listStudentsButton" text="Liste Étudiants" onAction="#goToStudentList" styleClass="button" prefWidth="180" disable="true"/>
+            <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout" styleClass="button" prefWidth="180"/>
+        </VBox>
+    </left>
+    <center>
+        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 40;" VBox.vgrow="ALWAYS">
+            <Label text="Liste des Étudiants (Admin)" styleClass="title-label"/>
+            <TableView fx:id="etudiantTable" prefHeight="600" prefWidth="800" styleClass="table-view" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="ID" prefWidth="100"/>
+                    <TableColumn fx:id="nomColumn" text="Nom" prefWidth="120"/>
+                    <TableColumn fx:id="prenomColumn" text="Prénom" prefWidth="120"/>
+                    <TableColumn fx:id="emailColumn" text="Email" prefWidth="200"/>
+                    <TableColumn fx:id="niveauEtudeColumn" text="Niveau d'Étude" prefWidth="120"/>
+                    <TableColumn fx:id="actionColumn" text="Actions" prefWidth="140"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.etudiant.editProfilEtudiantController" maxWidth="Infinity" maxHeight="Infinity" minWidth="800" minHeight="600" alignment="CENTER" spacing="20" style="-fx-padding: 40;" VBox.vgrow="ALWAYS">
+    <stylesheets>
+        <URL value="@/fxml/styles.css"/>
+    </stylesheets>
+    <children>
+        <HBox fx:id="navbar" alignment="CENTER" spacing="15" style="-fx-background-color: #0D47A1; -fx-padding: 20;" prefHeight="60" HBox.hgrow="ALWAYS">
+            <Button fx:id="homeButton" text="Accueil" onAction="#goHome" styleClass="button" prefWidth="200"/>
+            <Button fx:id="profileButton" text="Profil" onAction="#goToProfile" styleClass="button" prefWidth="200"/>
+            <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout" styleClass="button" prefWidth="200"/>
+        </HBox>
+        <Label text="Modifier Profil Étudiant" styleClass="title-label"/>
+
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox alignment="CENTER" spacing="20" style="-fx-padding: 20;">
+                    <TextField fx:id="nomField" promptText="Nom" styleClass="text-field" prefWidth="400"/>
+                    <TextField fx:id="prenomField" promptText="Prénom" styleClass="text-field" prefWidth="400"/>
+                    <TextField fx:id="emailField" promptText="Email" styleClass="text-field" prefWidth="400"/>
+                    <TextField fx:id="roleField" promptText="Rôle" styleClass="text-field" prefWidth="400" disable="true"/>
+                    <TextField fx:id="adresseField" promptText="Adresse" styleClass="text-field" prefWidth="400"/>
+                    <TextField fx:id="numTelephoneField" promptText="Numéro de téléphone" styleClass="text-field" prefWidth="400"/>
+                    <TextField fx:id="niveauEtudeField" promptText="Niveau d'étude" styleClass="text-field" prefWidth="400"/>
+
+                    <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10; -fx-border-color: #CCCCCC; -fx-border-radius: 5;">
+                        <Label text="Changer le mot de passe" styleClass="subtitle-label" style="-fx-font-weight: bold;"/>
+                        <PasswordField fx:id="currentPasswordField" promptText="Mot de passe actuel" styleClass="text-field" prefWidth="400"/>
+                        <PasswordField fx:id="newPasswordField" promptText="Nouveau mot de passe" styleClass="text-field" prefWidth="400"/>
+                        <PasswordField fx:id="confirmPasswordField" promptText="Confirmer le nouveau mot de passe" styleClass="text-field" prefWidth="400"/>
+                        <Label fx:id="passwordStrengthLabel" styleClass="small-label"/>
+                        <Button fx:id="changePasswordButton" text="Changer le mot de passe" onAction="#changePassword" styleClass="button" prefWidth="250"/>
+                    </VBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <HBox spacing="20">
+            <Button fx:id="saveButton" text="Enregistrer" onAction="#saveProfile" styleClass="button" prefWidth="200"/>
+            <Button text="Retour" onAction="#goToProfile" styleClass="secondary-button" prefWidth="200"/>
+        </HBox>
+        <Label fx:id="errorLabel" styleClass="error-label"/>
+    </children>
+</VBox>
