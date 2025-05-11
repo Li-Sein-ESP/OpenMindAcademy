@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.mindrot.jbcrypt.BCrypt;
 import services.UserService;
 import utils.NavigationUtil;
@@ -16,7 +16,7 @@ import java.sql.SQLException;
 
 public class editProfilEtudiantController {
 
-    @FXML private HBox navbar;
+    @FXML private VBox navbar;
     @FXML private Button homeButton;
     @FXML private Button profileButton;
     @FXML private Button logoutButton;
@@ -34,6 +34,11 @@ public class editProfilEtudiantController {
     @FXML private Label passwordStrengthLabel;
     @FXML private Button changePasswordButton;
     @FXML private Label errorLabel;
+    @FXML private Button evenementButton;
+    @FXML private Button avisButton;
+    @FXML private Button payementButton;
+    @FXML private Button evaluationButton;
+    @FXML private Button sallesButton;
 
     private User currentUser;
     private UserService userService;
@@ -139,6 +144,31 @@ public class editProfilEtudiantController {
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors du changement de mot de passe : " + e.getMessage());
         }
+    }
+
+    @FXML
+    public void goToEvenement() {
+        NavigationUtil.showError("Fonctionnalité Evenement non implémentée.");
+    }
+
+    @FXML
+    public void goToAvis() {
+        NavigationUtil.showError("Fonctionnalité Avis non implémentée.");
+    }
+
+    @FXML
+    public void goToPayement() {
+        NavigationUtil.showError("Fonctionnalité Payement non implémentée.");
+    }
+
+    @FXML
+    public void goToEvaluation() {
+        NavigationUtil.showError("Fonctionnalité Evaluation non implémentée.");
+    }
+
+    @FXML
+    public void goToSalles() {
+        NavigationUtil.showError("Fonctionnalité Salles non implémentée.");
     }
 
     private boolean validatePassword(String password) {

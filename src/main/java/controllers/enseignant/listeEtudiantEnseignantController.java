@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import services.UserService;
 import utils.NavigationUtil;
 
@@ -15,12 +15,15 @@ import java.sql.SQLException;
 
 public class listeEtudiantEnseignantController {
 
-    @FXML private HBox navbar;
+    @FXML private VBox navbar;
     @FXML private Button homeButton;
     @FXML private Button studentsButton;
     @FXML private Button profileButton;
     @FXML private Button coursesButton;
     @FXML private Button logoutButton;
+    @FXML private Button salleButton;
+    @FXML private Button evenementButton;
+    @FXML private Button evaluationButton;
     @FXML private ListView<User> etudiantListView;
     @FXML private Button backButton;
 
@@ -74,6 +77,20 @@ public class listeEtudiantEnseignantController {
         NavigationUtil.showError("Fonctionnalité des cours non implémentée.");
     }
 
+    @FXML
+    public void goToSalle() {
+        NavigationUtil.showError("Fonctionnalité Salle non implémentée.");
+    }
+
+    @FXML
+    public void goToEvenement() {
+        NavigationUtil.showError("Fonctionnalité Evenement non implémentée.");
+    }
+
+    @FXML
+    public void goToEvaluation() {
+        NavigationUtil.showError("Fonctionnalité Evaluation non implémentée.");
+    }
 
     @FXML
     public void goBack() {

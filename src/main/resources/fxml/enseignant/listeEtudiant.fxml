@@ -2,26 +2,33 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
 <?import java.net.URL?>
-
-<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.enseignant.listeEtudiantEnseignantController" maxWidth="Infinity" maxHeight="Infinity" minWidth="800" minHeight="600" alignment="CENTER" spacing="20" VBox.vgrow="ALWAYS">
+<?import javafx.scene.layout.HBox?>
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.enseignant.listeEtudiantEnseignantController" maxWidth="Infinity" maxHeight="Infinity" minWidth="800" minHeight="600">
     <stylesheets>
         <URL value="@/fxml/styles.css"/>
     </stylesheets>
-    <children>
-        <HBox fx:id="navbar" alignment="CENTER" spacing="15" style="-fx-background-color: #0D47A1; -fx-padding: 20;" prefHeight="60" HBox.hgrow="ALWAYS">
-            <Button fx:id="homeButton" text="Accueil" onAction="#goToHome" styleClass="button" prefWidth="200"/>
-            <Button fx:id="studentsButton" text="Liste des Étudiants" onAction="#goToStudentsList" styleClass="button" prefWidth="200" disable="true"/>
-            <Button fx:id="profileButton" text="Profil" onAction="#goToProfile" styleClass="button" prefWidth="200"/>
-            <Button fx:id="coursesButton" text="Cours" onAction="#goToCourses" styleClass="button" prefWidth="200"/>
-            <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout" styleClass="button" prefWidth="200"/>
-        </HBox>
-        <Label text="Liste des Étudiants" styleClass="title-label"/>
-        <ListView fx:id="etudiantListView" prefHeight="600" prefWidth="800" VBox.vgrow="ALWAYS"/>
-        <HBox spacing="20">
-            <Button fx:id="backButton" text="Retour" onAction="#goBack" styleClass="secondary-button" prefWidth="200"/>
-        </HBox>
-    </children>
-</VBox>
+    <left>
+        <VBox fx:id="navbar" alignment="TOP_CENTER" spacing="15" style="-fx-background-color: #0D47A1; -fx-padding: 20;" prefWidth="260">
+            <Button fx:id="homeButton" text="Accueil" onAction="#goToHome" styleClass="button" prefWidth="240"/>
+            <Button fx:id="studentsButton" text="Liste des Étudiants" onAction="#goToStudentsList" styleClass="button" prefWidth="240" disable="true"/>
+            <Button fx:id="profileButton" text="Profil" onAction="#goToProfile" styleClass="button" prefWidth="240"/>
+            <Button fx:id="coursesButton" text="Cours" onAction="#goToCourses" styleClass="button" prefWidth="240"/>
+            <Button fx:id="salleButton" text="Salle" onAction="#goToSalle" styleClass="button" prefWidth="240"/>
+            <Button fx:id="evenementButton" text="Evenement" onAction="#goToEvenement" styleClass="button" prefWidth="240"/>
+            <Button fx:id="evaluationButton" text="Evaluation" onAction="#goToEvaluation" styleClass="button" prefWidth="240"/>
+            <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout" styleClass="button" prefWidth="240"/>
+        </VBox>
+    </left>
+    <center>
+        <VBox alignment="CENTER" spacing="20">
+            <Label text="Liste des Étudiants" styleClass="title-label"/>
+            <ListView fx:id="etudiantListView" prefHeight="600" prefWidth="800" VBox.vgrow="ALWAYS"/>
+            <HBox spacing="20">
+                <Button fx:id="backButton" text="Retour" onAction="#goBack" styleClass="secondary-button" prefWidth="200"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

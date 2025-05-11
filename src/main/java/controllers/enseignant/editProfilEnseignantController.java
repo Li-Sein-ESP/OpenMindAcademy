@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.mindrot.jbcrypt.BCrypt;
 import services.UserService;
 import utils.NavigationUtil;
@@ -16,7 +16,7 @@ import java.sql.SQLException;
 
 public class editProfilEnseignantController {
 
-    @FXML private HBox navbar;
+    @FXML private VBox navbar;
     @FXML private Button homeButton;
     @FXML private Button profileButton;
     @FXML private Button logoutButton;
@@ -34,6 +34,9 @@ public class editProfilEnseignantController {
     @FXML private Label passwordStrengthLabel;
     @FXML private Button changePasswordButton;
     @FXML private Label errorLabel;
+    @FXML private Button salleButton;
+    @FXML private Button evenementButton;
+    @FXML private Button evaluationButton;
 
     private User currentUser;
     private UserService userService;
@@ -139,6 +142,21 @@ public class editProfilEnseignantController {
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors du changement de mot de passe : " + e.getMessage());
         }
+    }
+
+    @FXML
+    public void goToSalle() {
+        NavigationUtil.showError("Fonctionnalité Salle non implémentée.");
+    }
+
+    @FXML
+    public void goToEvenement() {
+        NavigationUtil.showError("Fonctionnalité Evenement non implémentée.");
+    }
+
+    @FXML
+    public void goToEvaluation() {
+        NavigationUtil.showError("Fonctionnalité Evaluation non implémentée.");
     }
 
     private boolean validatePassword(String password) {

@@ -4,18 +4,21 @@ import entities.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import utils.NavigationUtil;
 
 public class profilEnseignantController {
 
-    @FXML private HBox navbar;
+    @FXML private VBox navbar;
     @FXML private Button homeButton;
     @FXML private Button studentsButton;
     @FXML private Button profileButton;
     @FXML private Button coursesButton;
     @FXML private Button logoutButton;
     @FXML private Button editButton;
+    @FXML private Button salleButton;
+    @FXML private Button evenementButton;
+    @FXML private Button evaluationButton;
     @FXML private Label nomLabel;
     @FXML private Label prenomLabel;
     @FXML private Label emailLabel;
@@ -65,6 +68,21 @@ public class profilEnseignantController {
     @FXML
     public void goToEditProfile() {
         NavigationUtil.loadSceneWithUser("/fxml/enseignant/editProfilEnseignant.fxml", editButton, currentUser);
+    }
+
+    @FXML
+    public void goToSalle() {
+        NavigationUtil.showError("Fonctionnalité Salle non implémentée.");
+    }
+
+    @FXML
+    public void goToEvenement() {
+        NavigationUtil.showError("Fonctionnalité Evenement non implémentée.");
+    }
+
+    @FXML
+    public void goToEvaluation() {
+        NavigationUtil.showError("Fonctionnalité Evaluation non implémentée.");
     }
 
     @FXML

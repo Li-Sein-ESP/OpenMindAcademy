@@ -18,6 +18,11 @@
             <Button fx:id="homeButton" text="Accueil" onAction="#goToHome" styleClass="button" prefWidth="180"/>
             <Button fx:id="listTeachersButton" text="Liste Enseignants" onAction="#goToTeacherList" styleClass="button" prefWidth="180"/>
             <Button fx:id="listStudentsButton" text="Liste Étudiants" onAction="#goToStudentList" styleClass="button" prefWidth="180"/>
+            <Button fx:id="sallesButton" text="Salles" onAction="#goToSalles" styleClass="button" prefWidth="180"/>
+            <Button fx:id="evenementButton" text="Evenement" onAction="#goToEvenement" styleClass="button" prefWidth="180"/>
+            <Button fx:id="payementButton" text="Payement" onAction="#goToPayement" styleClass="button" prefWidth="180"/>
+            <Button fx:id="avisButton" text="Avis" onAction="#goToAvis" styleClass="button" prefWidth="180"/>
+            <Button fx:id="evaluationButton" text="Evaluation" onAction="#goToEvaluation" styleClass="button" prefWidth="180"/>
             <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout" styleClass="button" prefWidth="180"/>
         </VBox>
     </left>

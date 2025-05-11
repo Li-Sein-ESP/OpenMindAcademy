@@ -28,6 +28,11 @@ public class listeEtudiantAdminController {
     @FXML private Button listTeachersButton;
     @FXML private Button listStudentsButton;
     @FXML private Button logoutButton;
+    @FXML private Button sallesButton;
+    @FXML private Button evenementButton;
+    @FXML private Button payementButton;
+    @FXML private Button avisButton;
+    @FXML private Button evaluationButton;
 
     private UserService userService = new UserService();
     private User currentUser;
@@ -143,5 +148,35 @@ public class listeEtudiantAdminController {
     @FXML
     public void logout() {
         NavigationUtil.loadScene("/fxml/connexion.fxml", logoutButton);
+    }
+
+    @FXML
+    public void goToSalles() {
+        // TODO: Replace with actual navigation path
+        NavigationUtil.loadSceneWithUser("/fxml/admin/salles.fxml", sallesButton, currentUser);
+    }
+
+    @FXML
+    public void goToEvenement() {
+        // TODO: Replace with actual navigation path
+        NavigationUtil.loadSceneWithUser("/fxml/admin/evenement.fxml", evenementButton, currentUser);
+    }
+
+    @FXML
+    public void goToPayement() {
+        // TODO: Replace with actual navigation path
+        NavigationUtil.loadSceneWithUser("/fxml/admin/payement.fxml", payementButton, currentUser);
+    }
+
+    @FXML
+    public void goToAvis() {
+        // TODO: Replace with actual navigation path
+        NavigationUtil.loadSceneWithUser("/fxml/admin/avis.fxml", avisButton, currentUser);
+    }
+
+    @FXML
+    public void goToEvaluation() {
+        // TODO: Replace with actual navigation path
+        NavigationUtil.loadSceneWithUser("/fxml/admin/evaluation.fxml", evaluationButton, currentUser);
     }
 }
