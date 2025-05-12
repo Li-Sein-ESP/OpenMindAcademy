@@ -52,6 +52,7 @@
                     <Label text="Image:" GridPane.rowIndex="12" GridPane.columnIndex="0" styleClass="label"/>
                     <TextField fx:id="imageField" GridPane.rowIndex="12" GridPane.columnIndex="1" styleClass="text-field" prefWidth="400"/>
                     <HBox spacing="20" GridPane.rowIndex="13" GridPane.columnIndex="1" alignment="CENTER">
+                        <Button fx:id="saveFaceButton" text="Enregistrer Visage" onAction="#saveFace" styleClass="button" prefWidth="200"/>
                         <Button fx:id="registerButton" text="S'inscrire" onAction="#register" styleClass="button" prefWidth="200"/>
                         <Button text="Connexion" onAction="#goToLogin" styleClass="secondary-button" prefWidth="200"/>
                     </HBox>

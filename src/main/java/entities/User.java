@@ -15,11 +15,12 @@ public class User {
     private String email;
     private String sexe;
     private String numTelephone;
-    private String diplome; // Only for TEACHER
-    private String niveauEtude; // Only for STUDENT
+    private String diplome;
+    private String niveauEtude;
     private String password;
     private String image;
     private String resetToken;
+    private String faceEncoding; // Added field for face encoding
 
     public void setResetToken(String resetToken) {
         this.resetToken = resetToken;
@@ -29,11 +30,17 @@ public class User {
         return resetToken;
     }
 
-    // No-argument constructor
+    public String getFaceEncoding() {
+        return faceEncoding;
+    }
+
+    public void setFaceEncoding(String faceEncoding) {
+        this.faceEncoding = faceEncoding;
+    }
+
     public User() {
     }
 
-    // Full constructor
     public User(int id, String nom, String prenom, String adresse, LocalDate dateNaissance, Role role, String email,
                 Sexe sexe, String numTelephone, String diplome, String niveauEtude, String password, String image) {
         this.id = id;
@@ -41,23 +48,20 @@ public class User {
         this.prenom = prenom;
         this.adresse = adresse;
         this.dateNaissance = dateNaissance;
-        this.role = role; // Set role first to avoid validation issues
+        this.role = role;
         this.email = email;
         this.sexe = String.valueOf(sexe);
         this.numTelephone = numTelephone;
-        this.diplome = (role == Role.TEACHER) ? diplome : null; // Direct validation
-        this.niveauEtude = (role == Role.STUDENT) ? niveauEtude : null; // Direct validation
+        this.diplome = (role == Role.TEACHER) ? diplome : null;
+        this.niveauEtude = (role == Role.STUDENT) ? niveauEtude : null;
         this.password = password;
         this.image = image;
-
     }
 
-    // Minimal constructor
     public User(int id, String nom, String prenom, String email, Role role, String password) {
         this(id, nom, prenom, null, null, role, email, null, null, null, null, password, null);
     }
 
-    // Getters
     public int getId() { return id; }
     public String getNom() { return nom; }
     public String getPrenom() { return prenom; }
@@ -74,7 +78,6 @@ public class User {
     public String getPassword() { return password; }
     public String getImage() { return image; }
 
-    // Setters
     public void setId(int id) { this.id = id; }
     public void setNom(String nom) { this.nom = nom; }
     public void setPrenom(String prenom) { this.prenom = prenom; }

@@ -1,45 +1,37 @@
 package controllers;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import entities.User;
 import enums.Role;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import services.UserService;
+import services.FaceRecognitionService;
 import utils.NavigationUtil;
 
 import java.time.LocalDate;
 
 public class inscriptionController {
 
-    @FXML private TextField nomField;
-    @FXML private TextField prenomField;
-    @FXML private TextField emailField;
-    @FXML private PasswordField passwordField;
-    @FXML private PasswordField confirmPasswordField;
-    @FXML private ComboBox<Role> roleCombo;
-    @FXML private TextField adresseField;
+    @FXML private TextField nomField, prenomField, emailField, adresseField, numTelephoneField, diplomeField, niveauEtudeField, imageField;
     @FXML private DatePicker dateNaissancePicker;
+    @FXML private ComboBox<Role> roleCombo;
     @FXML private ComboBox<String> sexeCombo;
-    @FXML private TextField numTelephoneField;
-    @FXML private TextField diplomeField;
-    @FXML private TextField niveauEtudeField;
-    @FXML private TextField imageField;
-    @FXML private Label diplomeLabel;
-    @FXML private Label niveauEtudeLabel;
-    @FXML private Label passwordStrengthLabel;
-    @FXML private Button registerButton;
+    @FXML private PasswordField passwordField, confirmPasswordField;
+    @FXML private Label diplomeLabel, niveauEtudeLabel, passwordStrengthLabel;
+    @FXML private Button registerButton, saveFaceButton;
 
     private UserService userService;
+    private FaceRecognitionService faceRecognitionService;
+    private String faceEncoding;
 
     @FXML
     public void initialize() {
         userService = new UserService();
+        faceRecognitionService = new FaceRecognitionService();
 
-        // Initialiser les ComboBox
         roleCombo.getItems().addAll(Role.TEACHER, Role.STUDENT);
         sexeCombo.getItems().addAll("MALE", "FEMALE");
 
-        // Afficher/masquer les champs spécifiques selon le rôle
         roleCombo.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal == Role.TEACHER) {
                 diplomeLabel.setVisible(true);
@@ -59,13 +51,45 @@ public class inscriptionController {
             }
         });
 
-        // Évaluer la force du mot de passe et confirmation lorsqu'ils changent
         passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
             updatePasswordStrength(newValue, confirmPasswordField.getText());
         });
         confirmPasswordField.textProperty().addListener((observable, oldValue, newValue) -> {
             updatePasswordStrength(passwordField.getText(), newValue);
         });
+
+        // Initialize saveFaceButton state
+        saveFaceButton.setDisable(true);
+        emailField.textProperty().addListener((observable, oldValue, newValue) -> {
+            saveFaceButton.setDisable(newValue.trim().isEmpty());
+        });
+    }
+
+    @FXML
+    private void saveFace() {
+        String email = emailField.getText().trim();
+        if (email.isEmpty()) {
+            showWarning("Veuillez entrer un email avant d'enregistrer le visage.");
+            return;
+        }
+
+        saveFaceButton.setDisable(true);
+        saveFaceButton.setText("Enregistrement...");
+
+        try {
+            faceEncoding = faceRecognitionService.saveFace(email);
+            showWarning("Visage enregistré avec succès pour " + email);
+            imageField.setText("Visage enregistré pour " + email);
+        } catch (Exception e) {
+            String errorMessage = e.getMessage().contains("Error communicating with face recognition server")
+                    ? "Erreur : Le serveur de reconnaissance faciale n'est pas disponible. Veuillez vérifier qu'il est en cours d'exécution."
+                    : "Erreur lors de l'enregistrement du visage : " + e.getMessage();
+            showWarning(errorMessage);
+            imageField.setText("Échec de l'enregistrement du visage.");
+        } finally {
+            saveFaceButton.setDisable(false);
+            saveFaceButton.setText("Enregistrer Visage");
+        }
     }
 
     @FXML
@@ -99,7 +123,6 @@ public class inscriptionController {
                 return;
             }
 
-            // Proceed with registration logic
             try {
                 User newUser = new User();
                 newUser.setNom(nomField.getText());
@@ -119,6 +142,7 @@ public class inscriptionController {
                 }
 
                 newUser.setImage(imageField.getText());
+                newUser.setFaceEncoding(faceEncoding);
 
                 userService.addUser(newUser);
 
@@ -158,7 +182,6 @@ public class inscriptionController {
             return false;
         }
 
-        // Validate phone number (must be 8 digits)
         String phoneNumber = numTelephoneField.getText().trim();
         if (!phoneNumber.isEmpty() && !phoneNumber.matches("\\d{8}")) {
             showWarning("Le numéro de téléphone doit contenir exactement 8 chiffres !");
@@ -169,7 +192,6 @@ public class inscriptionController {
     }
 
     private boolean validateEmail(String email) {
-        // Basic email format validation
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         return email.matches(emailRegex);
     }
@@ -231,60 +253,39 @@ public class inscriptionController {
 
         int strength = 0;
 
-        // Length check
-        if (password.length() >= 8) {
-            strength++;
-        }
+        if (password.length() >= 8) strength++;
+        if (password.matches(".*[A-Z].*")) strength++;
+        if (password.matches(".*[a-z].*")) strength++;
+        if (password.matches(".*\\d.*")) strength++;
+        if (password.matches(".*[@#$%^&+=!].*")) strength++;
 
-        // Uppercase check
-        if (password.matches(".*[A-Z].*")) {
-            strength++;
-        }
-
-        // Lowercase check
-        if (password.matches(".*[a-z].*")) {
-            strength++;
-        }
-
-        // Digit check
-        if (password.matches(".*\\d.*")) {
-            strength++;
-        }
-
-        // Special character check
-        if (password.matches(".*[@#$%^&+=!].*")) {
-            strength++;
-        }
-
-        // Check if passwords match
         if (!password.equals(confirmPassword)) {
             passwordStrengthLabel.setText("Les mots de passe ne correspondent pas !");
-            passwordStrengthLabel.setStyle("-fx-text-fill: #FF0000;"); // Red
+            passwordStrengthLabel.setStyle("-fx-text-fill: #FF0000;");
             return;
         }
 
-        // Update label based on strength
         switch (strength) {
             case 0:
             case 1:
                 passwordStrengthLabel.setText("Force du mot de passe: Très faible");
-                passwordStrengthLabel.setStyle("-fx-text-fill: #FF0000;"); // Red
+                passwordStrengthLabel.setStyle("-fx-text-fill: #FF0000;");
                 break;
             case 2:
                 passwordStrengthLabel.setText("Force du mot de passe: Faible");
-                passwordStrengthLabel.setStyle("-fx-text-fill: #FF6600;"); // Orange
+                passwordStrengthLabel.setStyle("-fx-text-fill: #FF6600;");
                 break;
             case 3:
                 passwordStrengthLabel.setText("Force du mot de passe: Moyen");
-                passwordStrengthLabel.setStyle("-fx-text-fill: #FFCC00;"); // Yellow
+                passwordStrengthLabel.setStyle("-fx-text-fill: #FFCC00;");
                 break;
             case 4:
                 passwordStrengthLabel.setText("Force du mot de passe: Fort");
-                passwordStrengthLabel.setStyle("-fx-text-fill: #99CC00;"); // Light Green
+                passwordStrengthLabel.setStyle("-fx-text-fill: #99CC00;");
                 break;
             case 5:
                 passwordStrengthLabel.setText("Force du mot de passe: Très fort");
-                passwordStrengthLabel.setStyle("-fx-text-fill: #009900;"); // Green
+                passwordStrengthLabel.setStyle("-fx-text-fill: #009900;");
                 break;
         }
     }

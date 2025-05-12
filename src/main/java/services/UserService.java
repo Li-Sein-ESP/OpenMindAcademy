@@ -9,8 +9,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
 public class UserService {
     private Connection connection;
@@ -22,31 +20,10 @@ public class UserService {
         }
     }
 
-    public User loginWithFace() throws SQLException {
-        try {
-            ProcessBuilder pb = new ProcessBuilder("python", "path/to/face_login.py");
-            pb.redirectErrorStream(true);
-            Process process = pb.start();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line = reader.readLine();
-            int exitCode = process.waitFor();
-
-            if (exitCode != 0 || line == null || line.equals("No match found")) {
-                return null;
-            }
-
-            int userId = Integer.parseInt(line);
-            return getUserById(userId);
-        } catch (Exception e) {
-            throw new SQLException("Face login failed: " + e.getMessage(), e);
-        }
-    }
-
     public void addUser(User user) throws SQLException {
         ensureConnection();
-        String query = "INSERT INTO users (nom, prenom, adresse, date_naissance, role, email, sexe, num_telephone, diplome, niveau_etude, password) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO users (nom, prenom, adresse, date_naissance, role, email, sexe, num_telephone, diplome, niveau_etude, password, face_encoding) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, user.getNom());
             stmt.setString(2, user.getPrenom());
@@ -59,6 +36,7 @@ public class UserService {
             stmt.setString(9, user.getDiplome());
             stmt.setString(10, user.getNiveauEtude());
             stmt.setString(11, encryptPassword(user.getPassword()));
+            stmt.setString(12, user.getFaceEncoding()); // Add face encoding
             stmt.executeUpdate();
 
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -132,7 +110,7 @@ public class UserService {
 
     public void updateUser(User user) throws SQLException {
         ensureConnection();
-        String query = "UPDATE users SET nom = ?, prenom = ?, adresse = ?, date_naissance = ?, role = ?, email = ?, sexe = ?, num_telephone = ?, diplome = ?, niveau_etude = ?, password = ? WHERE id = ?";
+        String query = "UPDATE users SET nom = ?, prenom = ?, adresse = ?, date_naissance = ?, role = ?, email = ?, sexe = ?, num_telephone = ?, diplome = ?, niveau_etude = ?, password = ?, face_encoding = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, user.getNom());
             stmt.setString(2, user.getPrenom());
@@ -144,8 +122,9 @@ public class UserService {
             stmt.setString(8, user.getNumTelephone());
             stmt.setString(9, user.getDiplome());
             stmt.setString(10, user.getNiveauEtude());
-            stmt.setString(11, user.getPassword()); // Password should already be hashed
-            stmt.setInt(12, user.getId());
+            stmt.setString(11, user.getPassword());
+            stmt.setString(12, user.getFaceEncoding());
+            stmt.setInt(13, user.getId());
             stmt.executeUpdate();
         }
     }
@@ -201,6 +180,7 @@ public class UserService {
         user.setNiveauEtude(rs.getString("niveau_etude"));
         user.setPassword(rs.getString("password"));
         user.setResetToken(rs.getString("reset_token"));
+        user.setFaceEncoding(rs.getString("face_encoding")); // Add face encoding
         return user;
     }
 

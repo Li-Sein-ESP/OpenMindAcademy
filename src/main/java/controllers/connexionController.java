@@ -1,19 +1,15 @@
 package controllers;
 
 import entities.User;
+import enums.Role;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-
 import services.UserService;
-import org.mindrot.jbcrypt.BCrypt;
+import services.FaceRecognitionService;
 import utils.NavigationUtil;
+import org.mindrot.jbcrypt.BCrypt;
 
-import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 public class connexionController {
@@ -26,6 +22,7 @@ public class connexionController {
     @FXML private Hyperlink registerLink;
 
     private UserService userService;
+    private FaceRecognitionService faceRecognitionService;
     private static User loggedInUser;
 
     public static User getLoggedInUser() {
@@ -35,17 +32,10 @@ public class connexionController {
     @FXML
     public void initialize() {
         userService = new UserService();
+        faceRecognitionService = new FaceRecognitionService();
 
-        // Ajouter des validations en temps réel
-        emailField.textProperty().addListener((observable, oldValue, newValue) -> {
-            validateForm();
-        });
-
-        passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
-            validateForm();
-        });
-
-        // Désactiver le bouton de connexion par défaut
+        emailField.textProperty().addListener((observable, oldValue, newValue) -> validateForm());
+        passwordField.textProperty().addListener((observable, oldValue, newValue) -> validateForm());
         loginButton.setDisable(true);
     }
 
@@ -63,7 +53,6 @@ public class connexionController {
         loginButton.setDisable(true);
         loginButton.setText("Connexion en cours...");
 
-        // Utiliser CompletableFuture pour ne pas bloquer l'UI
         CompletableFuture.supplyAsync(() -> {
             try {
                 return userService.getUserByEmail(email);
@@ -118,7 +107,50 @@ public class connexionController {
 
     @FXML
     public void loginWithFace() {
-        showError("Face ID login is not implemented yet.");
+        faceLoginButton.setDisable(true);
+        faceLoginButton.setText("Scanning...");
+
+        CompletableFuture.supplyAsync(() -> {
+            try {
+                return faceRecognitionService.recognizeFace(userService);
+            } catch (Exception e) {
+                return null;
+            }
+        }).thenAccept(user -> {
+            Platform.runLater(() -> {
+                if (user != null) {
+                    loggedInUser = user;
+                    try {
+                        switch (user.getRole()) {
+                            case TEACHER:
+                                NavigationUtil.loadSceneWithUser("/fxml/enseignant/accueilEnseignant.fxml", emailField, user);
+                                break;
+                            case STUDENT:
+                                NavigationUtil.loadSceneWithUser("/fxml/etudiant/accueilEtudiant.fxml", emailField, user);
+                                break;
+                            case ADMIN:
+                                NavigationUtil.loadSceneWithUser("/fxml/admin/UserManagement.fxml", emailField, user);
+                                break;
+                            default:
+                                showError("Rôle non pris en charge pour l'instant.");
+                        }
+                    } catch (Exception e) {
+                        showError("Erreur lors du chargement de la page: " + e.getMessage());
+                    }
+                } else {
+                    showError("No matching face found or face recognition server error.");
+                }
+                faceLoginButton.setDisable(false);
+                faceLoginButton.setText("Login with Face ID");
+            });
+        }).exceptionally(e -> {
+            Platform.runLater(() -> {
+                showError("Error during face login: " + e.getMessage());
+                faceLoginButton.setDisable(false);
+                faceLoginButton.setText("Login with Face ID");
+            });
+            return null;
+        });
     }
 
     @FXML
