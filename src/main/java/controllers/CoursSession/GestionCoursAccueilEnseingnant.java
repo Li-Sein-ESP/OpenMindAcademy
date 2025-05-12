@@ -29,13 +29,10 @@ public class GestionCoursAccueilEnseingnant {
     // Containers
     @FXML private HBox coursButtonsContainer;
     @FXML private HBox sessionsButtonsContainer;
-    @FXML private HBox metierButtonsContainer;
-    @FXML private StackPane tableContainer;
 
     // Boutons d'affichage
     @FXML private Button afficherCoursBtn;
     @FXML private Button afficherSessionsBtn;
-    @FXML private Button refreshBtn;
 
     @FXML private Button ajouterCoursBtn;
     @FXML private Button modifierCoursBtn;
@@ -43,8 +40,6 @@ public class GestionCoursAccueilEnseingnant {
     @FXML private Button ajouterSessionBtn;
     @FXML private Button modifierSessionBtn;
     @FXML private Button supprimerSessionBtn;
-    @FXML private Button metierAvancee1Btn;
-    @FXML private Button metierAvancee2Btn;
 
     // Tables
     @FXML private TableView<Cours> tableCours;

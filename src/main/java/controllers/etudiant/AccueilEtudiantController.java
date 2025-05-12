@@ -27,26 +27,15 @@ public class AccueilEtudiantController {
     @FXML private Button evaluationButton;
     @FXML private Button sallesButton;
     @FXML private Label welcomeLabel;
-
     private User currentUser;
-
     public void setUser(User user) {
         this.currentUser = user;
         if (user != null) {
             welcomeLabel.setText("Bienvenue, " + user.getPrenom() + " " + user.getNom());
         }
     }
-
-    @FXML
-    public void goToHome() {
-        NavigationUtil.loadSceneWithUser("/fxml/etudiant/accueilEtudiant.fxml", homeButton, currentUser);
-    }
-
-    @FXML
-    public void goToProfile() {
-        NavigationUtil.loadSceneWithUser("/fxml/etudiant/profilEtudiant.fxml", profileButton, currentUser);
-    }
-
+    @FXML public void goToHome() {NavigationUtil.loadSceneWithUser("/fxml/etudiant/accueilEtudiant.fxml", homeButton, currentUser);}
+    @FXML public void goToProfile() {NavigationUtil.loadSceneWithUser("/fxml/etudiant/profilEtudiant.fxml", profileButton, currentUser);}
     private void naviguerVers(String fxmlPath, Button bouton) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
@@ -56,43 +45,28 @@ public class AccueilEtudiantController {
             System.out.println("Erreur Erreur de navigation: " + e.getMessage());
         }
     }
-    @FXML
-    public void goToCourses() {
-        naviguerVers("/Cours/GestionCoursAccueilEnseingnant.fxml", coursesButton);
+    @FXML public void goToCourses() {
+        naviguerVers("/Cours/afficherSessionEtudiant.fxml", coursesButton);
     }
-
-    @FXML
-    public void goToGrades() {
+    @FXML public void goToGrades() {
         NavigationUtil.showError("Fonctionnalité des notes non implémentée.");
     }
-
-    @FXML
-    public void logout() {
+    @FXML public void logout() {
         NavigationUtil.loadScene("/fxml/connexion.fxml", logoutButton);
     }
-
-    @FXML
-    public void goToEvenement() {
+    @FXML public void goToEvenement() {
         NavigationUtil.showError("Fonctionnalité Evenement non implémentée.");
     }
-
-    @FXML
-    public void goToAvis() {
+    @FXML public void goToAvis() {
         NavigationUtil.showError("Fonctionnalité Avis non implémentée.");
     }
-
-    @FXML
-    public void goToPayement() {
+    @FXML public void goToPayement() {
         NavigationUtil.showError("Fonctionnalité Payement non implémentée.");
     }
-
-    @FXML
-    public void goToEvaluation() {
+    @FXML public void goToEvaluation() {
         NavigationUtil.showError("Fonctionnalité Evaluation non implémentée.");
     }
-
-    @FXML
-    public void goToSalles() {
+    @FXML public void goToSalles() {
         NavigationUtil.showError("Fonctionnalité Salles non implémentée.");
     }
 }

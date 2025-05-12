@@ -16,7 +16,7 @@
     </stylesheets>
     <left>
         <VBox fx:id="navbar" alignment="TOP_CENTER" spacing="15" style="-fx-background-color: #0D47A1; -fx-padding: 20;" prefWidth="220">
-            <Button fx:id="homeButton" text="Accueil" onAction="#goToHome" styleClass="button" prefWidth="180" />
+            <Button fx:id="homeButton" text="Accueil" onAction="#goToHome" styleClass="button" prefWidth="180" disable="true"/>
             <Button fx:id="profileButton" text="Profil" onAction="#goToProfile" styleClass="button" prefWidth="180"/>
             <Button fx:id="coursesButton" text="Cours" onAction="#goToCourses" styleClass="button" prefWidth="180"/>
             <Button fx:id="gradesButton" text="Notes" onAction="#goToGrades" styleClass="button" prefWidth="180"/>
@@ -28,5 +28,46 @@
             <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout" styleClass="button" prefWidth="180"/>
         </VBox>
     </left>
+    <!-- Contenu principal au centre -->
+    <center>
+        <VBox spacing="15" style="-fx-padding: 20;">
+            <!-- En-tête -->
+            <Label text="Gestion des Cours et Sessions"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0D47A1;" />
+
+            <!-- Boutons de navigation -->
+            <HBox spacing="15" alignment="CENTER" style="-fx-padding: 10;">
+                <Button fx:id="afficherCoursBtn" onAction="#afficherTableCours" text="Afficher Cours" style="-fx-font-size: 14px;" />
+                <Button fx:id="afficherSessionsBtn" onAction="#afficherTableSessions" text="Afficher Sessions" style="-fx-font-size: 14px;" />
+            </HBox>
+
+            <!-- Conteneur des tables avec bordure -->
+            <VBox spacing="20" style="-fx-border-color: #BDBDBD; -fx-border-width: 1; -fx-padding: 15; -fx-background-color: #FAFAFA;">
+                <!-- Table des cours (visible par défaut) -->
+                <TableView fx:id="tableCours" visible="true" style="-fx-pref-height: 300;">
+                    <columns>
+                        <TableColumn fx:id="idCoursCol" text="ID" style="-fx-alignment: CENTER;" />
+                        <TableColumn fx:id="nomCoursCol" text="Nom" style="-fx-alignment: CENTER-LEFT;" />
+                        <TableColumn fx:id="descriptionCol" text="Description" style="-fx-alignment: CENTER-LEFT;" />
+                        <TableColumn fx:id="dureeCol" text="Durée (h)" style="-fx-alignment: CENTER;" />
+                        <TableColumn fx:id="prixCol" text="Prix (€)" style="-fx-alignment: CENTER;" />
+                        <TableColumn fx:id="categorieCol" text="Catégorie" style="-fx-alignment: CENTER-LEFT;" />
+                    </columns>
+                </TableView>
+
+                <!-- Table des sessions (cachée par défaut) -->
+                <TableView fx:id="tableSessionCours" visible="false" style="-fx-pref-height: 300;">
+                    <columns>
+                        <TableColumn fx:id="idSessionCol" text="ID" style="-fx-alignment: CENTER;" />
+                        <TableColumn fx:id="nomSessionCol" text="Nom Session" style="-fx-alignment: CENTER-LEFT;" />
+                        <TableColumn fx:id="dateDebutCol" text="Date Début" style="-fx-alignment: CENTER;" />
+                        <TableColumn fx:id="dateFinCol" text="Date Fin" style="-fx-alignment: CENTER;" />
+                        <TableColumn fx:id="coursSessionCol" text="Cours Associé" style="-fx-alignment: CENTER-LEFT;" />
+                        <TableColumn fx:id="descriptionCoursCol" text="Description Cours" style="-fx-alignment: CENTER-LEFT;" />
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
     </BorderPane>
 
