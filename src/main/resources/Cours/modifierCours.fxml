@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.CoursSession.modifierCoursController"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <!-- Feuille de style -->
+    <stylesheets>
+        <URL value="@/fxml/styles.css"/>
+    </stylesheets>
+
+    <!-- Barre de navigation à gauche -->
+    <left>
+        <VBox fx:id="navbar" alignment="TOP_CENTER" spacing="15"
+              style="-fx-background-color: #0D47A1; -fx-padding: 20;" prefWidth="220">
+            <Button fx:id="homeButton" text="Accueil" onAction="#goToHome" styleClass="button" prefWidth="180" />
+            <Button fx:id="profileButton" text="Profil" onAction="#goToProfile" styleClass="button" prefWidth="180"/>
+            <Button fx:id="coursesButton" text="Cours" onAction="#goToCourses" styleClass="button" prefWidth="180"/>
+            <Button fx:id="gradesButton" text="Notes" onAction="#goToGrades" styleClass="button" prefWidth="180"/>
+            <Button fx:id="evenementButton" text="Evenement" onAction="#goToEvenement" styleClass="button" prefWidth="180"/>
+            <Button fx:id="avisButton" text="Avis" onAction="#goToAvis" styleClass="button" prefWidth="180"/>
+            <Button fx:id="payementButton" text="Payement" onAction="#goToPayement" styleClass="button" prefWidth="180"/>
+            <Button fx:id="evaluationButton" text="Evaluation" onAction="#goToEvaluation" styleClass="button" prefWidth="180"/>
+            <Button fx:id="sallesButton" text="Salles" onAction="#goToSalles" styleClass="button" prefWidth="180"/>
+            <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout" styleClass="button" prefWidth="180"/>
+        </VBox>
+    </left>
+
+    <!-- Contenu principal -->
+    <center>
+        <VBox spacing="20" style="-fx-padding: 20;">
+
+            <!-- En-tête -->
+            <Label text="Modifier un Cours"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0D47A1;" />
+
+            <!-- Boutons d'affichage -->
+            <HBox spacing="15" alignment="CENTER">
+                <Button fx:id="afficherCoursBtn" onAction="#afficherTableCours" text="Afficher Cours" style="-fx-font-size: 14px;" />
+                <Button fx:id="ajouterCoursBtn" onAction="#handleAjouterCours" text="Ajouter Cours" style="-fx-font-size: 14px;" />
+                <Button fx:id="supprimerCoursBtn" onAction="#handleSupprimerCours" text="Supprimer Cours" style="-fx-font-size: 14px;" />
+            </HBox>
+
+            <!-- Formulaire de modification -->
+            <VBox spacing="15" style="-fx-border-color: #BDBDBD; -fx-border-width: 1; -fx-padding: 15; -fx-background-color: #FAFAFA;">
+                <Label text="Rechercher un cours"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #424242;" />
+
+                <!-- Recherche -->
+                <HBox spacing="10" alignment="CENTER">
+                    <ComboBox fx:id="critereComboBox" promptText="Choisir critère de recherche" prefWidth="150" />
+                    <TextField fx:id="valeurRechercheField" promptText="Entrez ID ou nom" prefWidth="200" />
+                    <Button fx:id="btnRechercher" onAction="#rechercherCours" text="Rechercher" style="-fx-font-size: 14px;" />
+                </HBox>
+
+                <!-- Champs du formulaire -->
+                <GridPane hgap="10" vgap="12">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="30" />
+                        <ColumnConstraints percentWidth="70" />
+                    </columnConstraints>
+
+                    <Label text="Nom :" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-text-fill: #424242;" />
+                    <TextField fx:id="nomField" alignment="CENTER" promptText="Entrez le nom du cours"
+                               GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <Label text="Description :" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-text-fill: #424242;" />
+                    <TextField fx:id="descriptionField" promptText="Entrez la description"
+                               GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label text="Prix :" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-text-fill: #424242;" />
+                    <TextField fx:id="prixField" promptText="Entrez le prix"
+                               GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <Label text="Durée (heures) :" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-text-fill: #424242;" />
+                    <Spinner fx:id="dureeSpinner" prefHeight="26.0" prefWidth="200.0"
+                             GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                    <Label text="Catégorie :" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-text-fill: #424242;" />
+                    <ComboBox fx:id="categorieComboBox" prefHeight="26.0" prefWidth="200.0"
+                              GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                </GridPane>
+            </VBox>
+
+            <!-- Bouton Modifier -->
+            <Button fx:id="modifierButton" prefHeight="50" prefWidth="450"
+                    text="Modifier Cours" onAction="#modifierCours"
+                    style="-fx-font-size: 16px; -fx-background-color: #0288D1; -fx-text-fill: white;" />
+        </VBox>
+    </center>
+</BorderPane>
