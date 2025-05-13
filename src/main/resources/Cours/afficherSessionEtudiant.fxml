@@ -33,6 +33,7 @@
             <HBox spacing="15" alignment="CENTER" style="-fx-padding: 10;">
                 <Button fx:id="afficherCoursBtn" onAction="#afficherTableCours" text="Afficher Cours"  />
                 <Button fx:id="afficherSessionsBtn" onAction="#afficherTableSessions" text="Afficher Sessions"  />
+                <Button fx:id="recommander" onAction="#recommander" text="Cours Recommander"  />
             </HBox>
 
             <!-- Conteneur des tables avec bordure -->

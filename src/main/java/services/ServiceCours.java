@@ -1,5 +1,6 @@
 package services;
 
+import enums.Role;
 import utils.*;
 import entities.*;
 import controllers.*;
@@ -189,7 +190,49 @@ public class ServiceCours {
         return categories;
     }
 
+    // Recommander un cours pour un étudiant en fonction de critères
+    public Optional<Cours> recommanderCoursApproche(List<Cours> coursList, String categoriePreferee, float budget, int duree, float tolerancePrix, int toleranceDuree) {
+        // Filtrer les cours selon la catégorie préférée
+        return coursList.stream()
+                .filter(cours -> cours.getCategoriesCours().getNom().equalsIgnoreCase(categoriePreferee)) // Correspondance de la catégorie
+                .filter(cours -> Math.abs(cours.getPrix() - budget) <= tolerancePrix) // Tolérance sur le prix
+                .filter(cours -> Math.abs(cours.getDuree() - duree) <= toleranceDuree) // Tolérance sur la durée
+                .sorted(Comparator.comparing(cours -> Math.abs(cours.getPrix() - budget) + Math.abs(cours.getDuree() - duree))) // Trier par proximité au budget et à la durée
+                .findFirst(); // Retourner le premier cours correspondant
+    }
 
+    // Postuler pour devenir mentor et évaluer la probabilité d'acceptation
+    public String postulerMentor(User enseignant, Map<String, Integer> criteres) {
+        // Vérifiez que l'utilisateur est un enseignant
+        if (enseignant.getRole() != Role.TEACHER) {
+            return "Seuls les enseignants peuvent postuler pour devenir mentor.";
+        }
+
+        // Critères par défaut (pondération en pourcentages si aucun critère n'est fourni)
+        int experience = criteres.getOrDefault("experience", 5); // Années d'expérience
+        int pedagogie = criteres.getOrDefault("pedagogie", 4);   // Niveau de pédagogie (1 à 5)
+        int communication = criteres.getOrDefault("communication", 4); // Niveau de communication (1 à 5)
+
+        // Calcul de la chance d'acceptation (pondération simple)
+        int score = (experience * 50) + (pedagogie * 30) + (communication * 20);
+        int chanceAcceptation = Math.min(100, score / 10); // Normaliser le score sur 100
+
+        // Déterminer le poste correspondant au profil
+        String poste;
+        if (chanceAcceptation >= 80) {
+            poste = "Mentor Sénior (Projets Avancés)";
+        } else if (chanceAcceptation >= 50) {
+            poste = "Mentor Intermédiaire (Projets Intermédiaires)";
+        } else {
+            poste = "Mentor Débutant (Initiation et Modules Simples)";
+        }
+
+        // Retourner un résumé
+        return String.format(
+                "Votre chance d'acceptation : %d%%\nPoste recommandé : %s",
+                chanceAcceptation, poste
+        );
+    }
 
 }
 

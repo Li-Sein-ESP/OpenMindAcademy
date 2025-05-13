@@ -2,6 +2,7 @@ package controllers.CoursSession;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,7 +40,7 @@ public class GestionCoursAccueilEnseingnant {
     @FXML private Button supprimerCoursBtn;
     @FXML private Button ajouterSessionBtn;
     @FXML private Button modifierSessionBtn;
-    @FXML private Button supprimerSessionBtn;
+    @FXML private Button supprimerSessionBtn,mentor;
 
     // Tables
     @FXML private TableView<Cours> tableCours;
@@ -168,4 +169,5 @@ public class GestionCoursAccueilEnseingnant {
     @FXML private void handleModifierSession() {naviguerVers("/Cours/modifierSession.fxml", modifierSessionBtn);}
     @FXML private void handleSupprimerSession() {naviguerVers("/Cours/supprimerSession.fxml",supprimerSessionBtn);}
 
+    public void Mentor() {naviguerVers("/Cours/MentorApplication.fxml",mentor);}
 }

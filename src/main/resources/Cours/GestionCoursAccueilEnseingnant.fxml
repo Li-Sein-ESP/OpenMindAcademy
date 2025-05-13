@@ -40,6 +40,7 @@
             <HBox spacing="15" alignment="CENTER" style="-fx-padding: 10;">
                 <Button fx:id="afficherCoursBtn" onAction="#afficherTableCours" text="Afficher Cours" style="-fx-font-size: 14px;" />
                 <Button fx:id="afficherSessionsBtn" onAction="#afficherTableSessions" text="Afficher Sessions" style="-fx-font-size: 14px;" />
+                <Button fx:id="mentor" onAction="#Mentor" text="Mentor" style="-fx-font-size: 14px;" />
             </HBox>
 
             <!-- Conteneur pour les actions -->

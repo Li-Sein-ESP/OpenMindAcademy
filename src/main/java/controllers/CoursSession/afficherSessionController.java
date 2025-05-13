@@ -27,7 +27,7 @@ public class afficherSessionController {
 
     @FXML
     private VBox navbar;
-    @FXML private Button homeButton;
+    @FXML private Button homeButton,recommander;
     @FXML private Button profileButton;
     @FXML private Button coursesButton;
     @FXML private Button gradesButton;
@@ -118,6 +118,7 @@ public class afficherSessionController {
         tableSessionCours.setVisible(true);
         loadSessions();
     }
+    @FXML private void recommander(){naviguerVers("/Cours/RecommanderCours.fxml",recommander);}
     @FXML public void initialize() {
         configureCoursColumns();
         configureSessionColumns();
