@@ -2,10 +2,16 @@ package controllers.enseignant;
 
 import entities.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import utils.NavigationUtil;
+
+import java.io.IOException;
 
 public class AccueilEnseignantController {
 
@@ -44,9 +50,18 @@ public class AccueilEnseignantController {
         NavigationUtil.loadSceneWithUser("/fxml/enseignant/profilEnseignant.fxml", profileButton, currentUser);
     }
 
+    private void naviguerVers(String fxmlPath, Button bouton) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+            Stage stage = (Stage) bouton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            System.out.println("Erreur Erreur de navigation: " + e.getMessage());
+        }
+    }
     @FXML
     public void goToCourses() {
-        NavigationUtil.showError("Fonctionnalité des cours non implémentée.");
+        naviguerVers("/Cours/GestionCoursAccueilEnseingnant.fxml", coursesButton);
     }
 
     @FXML

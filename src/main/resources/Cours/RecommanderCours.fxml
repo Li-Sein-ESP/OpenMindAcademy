@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.CoursSession.RecommanderCoursController"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <!-- Feuille de style -->
+    <stylesheets>
+        <URL value="@/fxml/styles.css"/>
+    </stylesheets>
+
+    <!-- Barre de navigation à gauche -->
+    <left>
+        <VBox fx:id="navbar" alignment="TOP_CENTER" style="-fx-background-color: #0D47A1; -fx-padding: 20;" spacing="15">
+            <Button fx:id="homeButton" text="Accueil" onAction="#goToHome" styleClass="button" prefWidth="180"/>
+            <Button fx:id="profileButton" text="Profil" onAction="#goToProfile" styleClass="button" prefWidth="180"/>
+            <Button fx:id="coursesButton" text="Cours" onAction="#goToCourses" styleClass="button" prefWidth="180"/>
+            <Button fx:id="gradesButton" text="Notes" onAction="#goToGrades" styleClass="button" prefWidth="180"/>
+            <Button fx:id="evenementButton" text="Evenement" onAction="#goToEvenement" styleClass="button" prefWidth="180"/>
+            <Button fx:id="avisButton" text="Avis" onAction="#goToAvis" styleClass="button" prefWidth="180"/>
+            <Button fx:id="payementButton" text="Payement" onAction="#goToPayement" styleClass="button" prefWidth="180"/>
+            <Button fx:id="evaluationButton" text="Evaluation" onAction="#goToEvaluation" styleClass="button" prefWidth="180"/>
+            <Button fx:id="sallesButton" text="Salles" onAction="#goToSalles" styleClass="button" prefWidth="180"/>
+            <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout" styleClass="button" prefWidth="180"/>
+        </VBox>
+    </left>
+
+    <!-- Contenu principal au centre -->
+    <center>
+        <VBox spacing="20" style="-fx-padding: 20;">
+
+            <HBox spacing="15" alignment="CENTER" style="-fx-padding: 10;">
+                <Button fx:id="afficherCoursBtn" onAction="#afficherTableCours" text="Afficher Cours"  />
+                <Button fx:id="afficherSessionsBtn" onAction="#afficherTableSessions" text="Afficher Sessions"  />
+            </HBox>
+
+            <!-- Formulaire pour les critères de recommandation -->
+            <GridPane hgap="10" vgap="10" style="-fx-padding: 10;">
+                <Label text="Catégorie Préférée:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                <ComboBox fx:id="categorieComboBox" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                <Label text="Budget Maximum (€):" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                <TextField fx:id="budgetTextField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                <Label text="Durée Maximum (heures):" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                <TextField fx:id="dureeTextField" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+                <!-- Boutons Rechercher et Reset alignés horizontalement -->
+                <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="3" GridPane.columnIndex="1">
+                    <Button fx:id="rechercherButton" text="Rechercher" onAction="#recommanderCours"/>
+                    <Button fx:id="resetButton" text="Reset" onAction="#resetFormulaire"/>
+                </HBox>
+            </GridPane>
+
+            <!-- Résultat de la recommandation -->
+            <VBox spacing="10" style="-fx-padding: 10; -fx-border-color: #BDBDBD; -fx-border-width: 1;">
+                <Label text="Résultat de la Recommandation:"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #0D47A1;" />
+                <Label fx:id="resultatLabel" text="Aucun cours recommandé pour le moment."
+                       style="-fx-font-size: 14px;" />
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

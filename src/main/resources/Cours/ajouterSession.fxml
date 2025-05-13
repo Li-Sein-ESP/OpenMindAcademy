@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.CoursSession.ajouterSessionController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <stylesheets>
+        <URL value="@/fxml/styles.css"/>
+    </stylesheets>
+    <left>
+        <VBox fx:id="navbar" alignment="TOP_CENTER" spacing="15" style="-fx-background-color: #0D47A1; -fx-padding: 20;" prefWidth="220">
+            <Button fx:id="homeButton" text="Accueil" onAction="#goToHome" styleClass="button" prefWidth="180" />
+            <Button fx:id="profileButton" text="Profil" onAction="#goToProfile" styleClass="button" prefWidth="180"/>
+            <Button fx:id="coursesButton" text="Cours" onAction="#goToCourses" styleClass="button" prefWidth="180"/>
+            <Button fx:id="gradesButton" text="Notes" onAction="#goToGrades" styleClass="button" prefWidth="180"/>
+            <Button fx:id="evenementButton" text="Evenement" onAction="#goToEvenement" styleClass="button" prefWidth="180"/>
+            <Button fx:id="avisButton" text="Avis" onAction="#goToAvis" styleClass="button" prefWidth="180"/>
+            <Button fx:id="payementButton" text="Payement" onAction="#goToPayement" styleClass="button" prefWidth="180"/>
+            <Button fx:id="evaluationButton" text="Evaluation" onAction="#goToEvaluation" styleClass="button" prefWidth="180"/>
+            <Button fx:id="sallesButton" text="Salles" onAction="#goToSalles" styleClass="button" prefWidth="180"/>
+            <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout" styleClass="button" prefWidth="180"/>
+        </VBox>
+    </left>
+
+    <VBox layoutX="238.0" layoutY="78.0" prefHeight="453.0" prefWidth="503.0" spacing="15" style="-fx-padding: 15px;">
+
+        <!-- Boutons de contrôle -->
+        <HBox spacing="10">
+            <Button fx:id="afficherSessionsBtn" onAction="#afficherTableSessions"  text="Afficher Sessions" />
+            <Button fx:id="modifierSessionBtn" onAction="#modifierSession" text="Modifier Session" />
+            <Button fx:id="supprimerSessionsBtn" onAction="#supprimerSessions" text="Supprimer Sessions" />
+        </HBox>
+
+        <!-- Formulaire d'ajout de session -->
+        <GridPane alignment="CENTER_LEFT" hgap="15" vgap="15">
+            <padding>
+                <Insets bottom="20" left="30" right="30" top="20" />
+            </padding>
+
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" percentWidth="35" />
+                <ColumnConstraints percentWidth="65" />
+            </columnConstraints>
+
+            <!-- Ligne 0: Nom de la session -->
+            <Label style="-fx-font-weight: bold;" text="Nom de la session:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="nomSessionField" promptText="Entrez le nom de la session" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <!-- Ligne 1: Dates -->
+            <Label style="-fx-font-weight: bold;" text="Période de la session:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Label text="Du:" />
+                <DatePicker fx:id="dateDebutPicker" prefWidth="150.0" />
+                <Label text="Au:" />
+                <DatePicker fx:id="dateFinPicker" prefWidth="150.0" />
+            </HBox>
+
+            <!-- Ligne 2: Sélection du cours -->
+            <Label style="-fx-font-weight: bold;" text="Cours associé:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <ComboBox fx:id="coursComboBox" prefWidth="300.0" promptText="Sélectionnez un cours" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <!-- Ligne 3: Description du cours -->
+            <Label style="-fx-font-weight: bold;" text="Description du cours:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextArea fx:id="descriptionCoursArea" editable="false" prefHeight="100.0" prefWidth="300.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+            <!-- Ligne 4: Bouton de validation -->
+            <HBox alignment="CENTER" spacing="20" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                <Button fx:id="ajouterSessionBtn" onAction="#handleAjouterSession" prefHeight="64.0" prefWidth="340.0" text="Ajouter Session" />
+            </HBox>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+    </VBox>
+
+</BorderPane>

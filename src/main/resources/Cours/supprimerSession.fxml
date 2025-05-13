@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.CoursSession.supprimerSessionController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <stylesheets>
+        <URL value="@/fxml/styles.css"/>
+    </stylesheets>
+    <left>
+        <VBox fx:id="navbar" alignment="TOP_CENTER" spacing="15" style="-fx-background-color: #0D47A1; -fx-padding: 20;" prefWidth="220">
+            <Button fx:id="homeButton" text="Accueil" onAction="#goToHome" styleClass="button" prefWidth="180" />
+            <Button fx:id="profileButton" text="Profil" onAction="#goToProfile" styleClass="button" prefWidth="180"/>
+            <Button fx:id="coursesButton" text="Cours" onAction="#goToCourses" styleClass="button" prefWidth="180"/>
+            <Button fx:id="gradesButton" text="Notes" onAction="#goToGrades" styleClass="button" prefWidth="180"/>
+            <Button fx:id="evenementButton" text="Evenement" onAction="#goToEvenement" styleClass="button" prefWidth="180"/>
+            <Button fx:id="avisButton" text="Avis" onAction="#goToAvis" styleClass="button" prefWidth="180"/>
+            <Button fx:id="payementButton" text="Payement" onAction="#goToPayement" styleClass="button" prefWidth="180"/>
+            <Button fx:id="evaluationButton" text="Evaluation" onAction="#goToEvaluation" styleClass="button" prefWidth="180"/>
+            <Button fx:id="sallesButton" text="Salles" onAction="#goToSalles" styleClass="button" prefWidth="180"/>
+            <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout" styleClass="button" prefWidth="180"/>
+        </VBox>
+
+        <VBox layoutX="0.0" layoutY="80.0" prefHeight="570.0" prefWidth="650.0" spacing="20" style="-fx-padding: 20;">
+
+            <!-- Boutons Affichage -->
+            <HBox spacing="10">
+                <Button fx:id="afficherSessionsBtn" onAction="#afficherTableSessions" text="Afficher Sessions" />
+                <Button fx:id="modifierSessionBtn" onAction="#handleModifierSession" text="Modifier Session" />
+                <Button fx:id="AjouterSessionBtn" onAction="#handleAjouterSession" text="Ajouter Session" />
+            </HBox>
+
+            <!-- Formulaire de recherche -->
+            <VBox spacing="10" alignment="CENTER">
+                <padding>
+                    <Insets top="20" right="20" bottom="10" left="20"/>
+                </padding>
+                <HBox spacing="10" alignment="CENTER">
+                    <Label text="Critère:"/>
+                    <ComboBox fx:id="critereComboBox">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="ID"/>
+                                <String fx:value="Nom"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <Label text="Valeur:"/>
+                    <TextField fx:id="valeurRechercheField" promptText="Entrez ID ou nom"/>
+                    <Button fx:id="btnRechercher" text="Rechercher" onAction="#rechercherSession"/>
+                </HBox>
+            </VBox>
+
+            <!-- TableView Sessions -->
+            <TableView fx:id="sessionTable" prefHeight="300">
+                <columns>
+                    <TableColumn fx:id="idCol" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="nomCol" text="Nom" prefWidth="150"/>
+                    <TableColumn fx:id="dateDebutCol" text="Date Début" prefWidth="100"/>
+                    <TableColumn fx:id="dateFinCol" text="Date Fin" prefWidth="100"/>
+                    <TableColumn fx:id="coursCol" text="Cours" prefWidth="150"/>
+                </columns>
+            </TableView>
+
+            <!-- Bouton Supprimer -->
+            <Button fx:id="supprimerButton" prefHeight="54.0" prefWidth="451.0"
+                    text="Supprimer Session" onAction="#supprimerSession" />
+
+        </VBox>
+
+    </left>
+
+</BorderPane>

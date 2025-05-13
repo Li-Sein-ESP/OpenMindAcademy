@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.CoursSession.ajouterCoursController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <!-- Ajout d'une feuille de style -->
+    <stylesheets>
+        <URL value="@/fxml/styles.css"/>
+    </stylesheets>
+
+    <!-- Barre de navigation à gauche -->
+    <left>
+        <VBox fx:id="navbar" alignment="TOP_CENTER" style="-fx-background-color: #0D47A1; -fx-padding: 20;" spacing="15">
+
+            <!-- Boutons de navigation -->
+            <Button fx:id="homeButton" text="Accueil" onAction="#goToHome"
+                    styleClass="button" prefWidth="180"/>
+            <Button fx:id="profileButton" text="Profil" onAction="#goToProfile"
+                    styleClass="button" prefWidth="180" />
+            <Button fx:id="coursesButton" text="Cours" onAction="#goToCourses"
+                    styleClass="button" prefWidth="180" />
+            <Button fx:id="gradesButton" text="Notes" onAction="#goToGrades"
+                    styleClass="button" prefWidth="180" />
+            <Button fx:id="evenementButton" text="Evenement" onAction="#goToEvenement"
+                    styleClass="button" prefWidth="180" />
+            <Button fx:id="avisButton" text="Avis" onAction="#goToAvis"
+                    styleClass="button" prefWidth="180" />
+            <Button fx:id="payementButton" text="Payement" onAction="#goToPayement"
+                    styleClass="button" prefWidth="180" />
+            <Button fx:id="evaluationButton" text="Evaluation" onAction="#goToEvaluation"
+                    styleClass="button" prefWidth="180" />
+            <Button fx:id="sallesButton" text="Salles" onAction="#goToSalles"
+                    styleClass="button" prefWidth="180" />
+            <Button fx:id="logoutButton" text="Déconnexion" onAction="#logout"
+                    styleClass="button" prefWidth="180" />
+        </VBox>
+    </left>
+
+    <!-- Contenu principal -->
+    <center>
+        <AnchorPane layoutX="250.0" layoutY="0.0" prefHeight="650.0" prefWidth="650.0">
+
+            <!-- Zone de contenu -->
+            <VBox layoutX="0.0" layoutY="80.0" prefHeight="570.0" prefWidth="650.0" spacing="20">
+
+                <!-- Boutons pour les actions principales -->
+                <HBox spacing="10" alignment="CENTER">
+                    <Button fx:id="afficherCoursBtn" onAction="#afficherTableCours" text="Afficher Cours" />
+                    <Button fx:id="modifierCoursBtn" onAction="#handleModifierCours" text="Modifier Cours" />
+                    <Button fx:id="supprimerCoursBtn" onAction="#handleSupprimerCours" text="Supprimer Cours" />
+                </HBox>
+
+                <!-- Formulaire pour ajouter un cours -->
+                <GridPane hgap="10" vgap="12">
+                    <!-- Configuration des colonnes -->
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="30" />
+                        <ColumnConstraints percentWidth="70" />
+                    </columnConstraints>
+
+                    <!-- Configuration des lignes -->
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                    </rowConstraints>
+
+                    <!-- Champs de formulaire -->
+                    <Label text="Nom :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="nomField" promptText="Nom du cours"
+                               GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <Label text="Description :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="descriptionField" prefHeight="80.0"
+                               promptText="Description du cours" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label text="Durée :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Spinner fx:id="dureeSpinner" editable="true"
+                             GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                    <Label text="Prix :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <TextField fx:id="prixField" promptText="Prix du cours"
+                               GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                    <Label text="Catégories :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <ComboBox fx:id="categorieComboBox" promptText="Sélectionnez une catégorie"
+                              GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                </GridPane>
+
+                <!-- Bouton pour ajouter un cours -->
+                <Button fx:id="ajouterButton" prefHeight="54.0" prefWidth="451.0"
+                        text="Ajouter Cours" onAction="#ajouterCours" alignment="CENTER" />
+            </VBox>
+        </AnchorPane>
+    </center>
+</BorderPane>

@@ -1,4 +1,4 @@
-package controllers.etudiant;
+package controllers.CoursSession;
 
 import entities.User;
 import javafx.fxml.FXML;
@@ -13,9 +13,10 @@ import utils.NavigationUtil;
 
 import java.io.IOException;
 
-public class AccueilEtudiantController {
+public class afficherCours {
 
-    @FXML private VBox navbar;
+    @FXML
+    private VBox navbar;
     @FXML private Button homeButton;
     @FXML private Button profileButton;
     @FXML private Button coursesButton;
@@ -34,7 +35,8 @@ public class AccueilEtudiantController {
             welcomeLabel.setText("Bienvenue, " + user.getPrenom() + " " + user.getNom());
         }
     }
-    @FXML public void goToHome() {NavigationUtil.loadSceneWithUser("/fxml/etudiant/accueilEtudiant.fxml", homeButton, currentUser);}
+    @FXML public void goToHome() {
+        NavigationUtil.loadSceneWithUser("/fxml/etudiant/accueilEtudiant.fxml", homeButton, currentUser);}
     @FXML public void goToProfile() {NavigationUtil.loadSceneWithUser("/fxml/etudiant/profilEtudiant.fxml", profileButton, currentUser);}
     private void naviguerVers(String fxmlPath, Button bouton) {
         try {
@@ -46,7 +48,7 @@ public class AccueilEtudiantController {
         }
     }
     @FXML public void goToCourses() {
-        naviguerVers("/Cours/afficherSessionEtudiant.fxml", coursesButton);
+        naviguerVers("/Cours/GestionCoursAccueilEnseingnant.fxml", coursesButton);
     }
     @FXML public void goToGrades() {
         NavigationUtil.showError("Fonctionnalité des notes non implémentée.");
@@ -69,4 +71,5 @@ public class AccueilEtudiantController {
     @FXML public void goToSalles() {
         NavigationUtil.showError("Fonctionnalité Salles non implémentée.");
     }
+
 }
