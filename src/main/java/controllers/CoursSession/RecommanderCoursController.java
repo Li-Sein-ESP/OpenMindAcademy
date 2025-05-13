@@ -10,6 +10,7 @@ import entities.Cours;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import services.ServiceCours;
+import utils.ChatBot;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,6 +23,11 @@ public class RecommanderCoursController {
     @FXML private TextField budgetTextField;
     @FXML private TextField dureeTextField;
     @FXML private Label resultatLabel;
+
+    // Champs pour le ChatBot
+    @FXML private TextArea chatBotInput; // Zone de saisie pour l'utilisateur
+    @FXML private TextArea chatBotResponse; // Zone de réponse du chatbot
+    @FXML private Button sendChatBotButton; // Bouton pour envoyer un message au chatbot
 
     // Boutons de navigation
     @FXML private VBox navbar;
@@ -37,6 +43,7 @@ public class RecommanderCoursController {
         // Initialisation du ComboBox avec les catégories
         remplirCategorieComboBox();
         resultatLabel.setText("Aucun cours recommandé pour le moment.");
+        chatBotResponse.setText("Bienvenue dans le module ChatBot ! Posez-moi une question.");
     }
 
     private void remplirCategorieComboBox() {
@@ -53,7 +60,6 @@ public class RecommanderCoursController {
             categorieComboBox.getItems().add(categorie.getNom());
         }
     }
-
 
     @FXML private void recommanderCours() {
         // Récupérer les critères de l'utilisateur
@@ -83,7 +89,7 @@ public class RecommanderCoursController {
 
         // Définir une tolérance pour le budget et la durée
         float tolerancePrix = 20.0f; // 20€ de tolérance pour le prix
-        int toleranceDuree = 5; // 2 heures de tolérance pour la durée
+        int toleranceDuree = 5; // 5 heures de tolérance pour la durée
 
         // Rechercher le cours recommandé en utilisant des tolérances
         Optional<Cours> coursRecommande = coursList.stream()
@@ -106,9 +112,24 @@ public class RecommanderCoursController {
         } else {
             resultatLabel.setText("Aucun cours ne correspond aux critères avec la tolérance définie.");
         }
+    }
 
-        // Réinitialiser le formulaire pour permettre une nouvelle tentative
-        //resetFormulaire();
+    @FXML private void handleChatBotInteraction() {
+        String userMessage = chatBotInput.getText().trim();
+
+        if (userMessage.isEmpty()) {
+            chatBotResponse.setText("Veuillez entrer un message avant d'envoyer.");
+            return;
+        }
+
+        // Appeler le ChatBot pour obtenir une réponse
+        String response = ChatBot.sendMessage(userMessage);
+
+        // Afficher la réponse du ChatBot
+        chatBotResponse.setText(response);
+
+        // Réinitialiser le champ d'entrée
+        chatBotInput.clear();
     }
 
     @FXML private void resetFormulaire() {
